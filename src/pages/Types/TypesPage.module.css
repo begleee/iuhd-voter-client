@@ -1,0 +1,14 @@
+.success {
+  color: rgb(111, 255, 111);
+}
+
+.unsuccess {
+  color: rgb(255, 87, 87);
+}
+
+.submitField {
+  margin-top: 1rem;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+}

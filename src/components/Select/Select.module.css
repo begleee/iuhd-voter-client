@@ -1,0 +1,170 @@
+/* .select {
+  flex: 1;
+}
+
+.select {
+  background: #53535321;
+  padding: 10px;
+  transition: 0.4s;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+}
+
+.select:hover,
+.select:focus {
+  background: #dddddd36;
+}
+
+.select::picker-icon {
+  color: #999999;
+  transition: 0.4s rotate;
+}
+
+.select:open::picker-icon {
+  rotate: 180deg;
+}
+
+::picker(select) {
+  border: none;
+}
+
+.select option {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+
+  border: 2px solid #dddddd;
+  background: #242424;
+  padding: 10px;
+  transition: 0.4s;
+  border-radius: 8px;
+}
+
+.select option:first-of-type {
+  border-radius: 8px 8px 0 0;
+}
+
+.select option:last-of-type {
+  border-radius: 0 0 8px 8px;
+}
+
+::picker(select) {
+  border-radius: 8px;
+}
+
+option:not(option:last-of-type) {
+  border-bottom: none;
+}
+
+option .icon {
+  font-size: 1.6rem;
+  text-box: trim-both cap alphabetic;
+}
+
+selectedcontent .icon {
+  display: none;
+}
+
+option:checked {
+  font-weight: bold;
+}
+
+option::checkmark {
+  order: 1;
+  margin-left: auto;
+}
+
+::picker(select) {
+  opacity: 0;
+  transition: all 0.4s allow-discrete;
+}
+
+::picker(select):popover-open {
+  opacity: 1;
+}
+
+@starting-style {
+  ::picker(select):popover-open {
+    opacity: 0;
+  }
+}
+
+::picker(select) {
+  top: calc(anchor(bottom) + 1px);
+} */
+
+
+.glassSelect {
+  position: relative;
+  width: 100%;
+  font-family: sans-serif;
+}
+
+.glassSelectTrigger {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.glassSelectTrigger:hover {
+  background: rgba(255, 255, 255, 0.26);
+  transform: translateY(-1px);
+}
+
+.arrow {
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 4px;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.open {
+  transform: rotate(-135deg);
+}
+
+.glassSelectOptions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin-top: 8px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  z-index: 50;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.glassSelectOptions li {
+  padding: 12px 16px;
+  cursor: pointer;
+  color: white;
+  transition: background 0.15s ease;
+}
+
+.glassSelectOptions li:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.loading {
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 8px;
+}

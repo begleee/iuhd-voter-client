@@ -1,0 +1,85 @@
+.glassSelectWrapper {
+  position: relative;
+  width: 100%;
+  font-family: sans-serif;
+}
+
+.glassLabel {
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.glassSelectTrigger {
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.glassSelectTrigger:hover {
+  background: rgba(255, 255, 255, 0.26);
+  transform: translateY(-1px);
+}
+
+.arrow {
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 4px;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.open {
+  transform: rotate(-135deg);
+}
+
+.glassSelectOptions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin-top: 8px;
+  border-radius: 14px;
+  background: rgba(251, 251, 251, 0.803);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  z-index: 50;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.glassSelectOptions li {
+  padding: 12px 16px;
+  cursor: pointer;
+  color: black;
+  transition: background 0.15s ease;
+}
+
+.glassSelectOptions li:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.selected {
+  background: rgba(255, 255, 255, 0.32);
+  font-weight: 600;
+}
+
+.openUp {
+  top: auto;
+  bottom: 100%;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
