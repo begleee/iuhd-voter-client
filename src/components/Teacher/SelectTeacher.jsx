@@ -1,18 +1,20 @@
 import { useNavigate } from 'react-router-dom';
-import { useRate } from '../../context/rates-context';
 import Button from '../Button/Button';
 import classes from './SelectTeacher.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { setTeacherId, setTypes } from '../../store/rates-slice';
 
 export default function SelectTeacher() {
-  const {setTeacherId, setTypes, data} = useRate();
+  const dispatch = useDispatch();
+  const { data} = useSelector(state => state.rates);
   const navigate = useNavigate();
 
   function handleSelectValue(e) {
     const id = parseInt(e.target.value);
-    setTeacherId(id);
+    dispatch(setTeacherId(id));
     const teacher = data.find(obj => obj.teacherId === id);
     const types = teacher.lessonTypes;
-    setTypes(types);
+    dispatch(setTypes(types));
     navigate('../lessontypes');
   }
 

@@ -1,32 +1,23 @@
-import { useRate } from "../../context/rates-context";
 import { useNavigate } from "react-router-dom";
 import classes from  './Select.module.css'
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { setGroupId } from '../../store/rates-slice';
+import { useDispatch } from "react-redux";
 
 export default function Select({label}) {
-  const [show, setShow] = useState(false)
-  const {setGroupId, groups} = useRate();
+  const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+  const groups = useSelector(state => state.rates.groups);
   const navigate = useNavigate();
 
   function handleSelectValue (id) {
-    setGroupId(id);
+    dispatch(setGroupId(id));
     navigate("./teachers");
   }
 
   return (
     <>
-      {/* <label htmlFor={nameFor}>
-        <p>{label}</p>
-      </label>
-      <select className={classes.select} value={groupId} onChange={handleSelectValue} id={nameFor}>
-        {!groups && <option>Loading...</option>}
-        {groups && <option>No option selected</option>}
-        {groups && groups.map(item => (
-            <option key={item.id} value={item.id}>
-              {item.name}
-            </option>
-        ))}
-      </select> */}
       <div className={classes.glassSelect}>
         <button
           className={classes.glassSelectTrigger}

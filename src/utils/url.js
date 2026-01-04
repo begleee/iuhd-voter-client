@@ -1,1 +1,1 @@
-export default "http://10.10.16.207:5000/api";
+export default "http://localhost:5000/api";

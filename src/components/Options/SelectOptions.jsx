@@ -1,21 +1,22 @@
 import { useState, useRef, useEffect } from 'react';
-import { useRate } from '../../context/rates-context';
 import classes from './SelectOptions.module.css';
+import { updateAnswers } from '../../store/rates-slice';
+import { useDispatch } from 'react-redux';
+
 export default function SelectOptions({ label, id }) {
   const [value, setValue] = useState();
-  const {updateAnswer, answers} = useRate();
-
-  function handleChage(val) {
-    const value = parseInt(val);
-    setValue(val);
-    updateAnswer(id, value);
-    console.log(answers);
-  }
+  const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
   const [openUp, setOpenUp] = useState(false);
   const triggerRef = useRef(null);
+
+  function handleChage(val) {
+    const value = parseInt(val);
+    setValue(val);
+    dispatch(updateAnswers({id, value}));
+  }
 
   const options = [
     { value: "5", label: "5: Always" },

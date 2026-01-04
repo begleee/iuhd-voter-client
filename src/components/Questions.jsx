@@ -1,8 +1,8 @@
-import { useRate } from '../context/rates-context'
+import { useSelector } from 'react-redux'
 import SelectOptions from './Options/SelectOptions'
 
 export default function Questions() {
-  const {questions} = useRate();
+  const questions = useSelector(state => state.rates.questions)
 
   return (
     <>

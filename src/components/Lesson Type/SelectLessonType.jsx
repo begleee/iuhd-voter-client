@@ -1,23 +1,13 @@
-import { useState } from 'react';
-import { useRate } from '../../context/rates-context';
-import classes from './SelectLessonType.module.css'
+import { useDispatch, useSelector } from 'react-redux';
+import classes from './SelectLessonType.module.css';
+import { setType, setIsAnswering } from '../../store/rates-slice';
 
 export default function SelectLessonType() {
-  const {setType, types, isAnswering, setIsAnswering} = useRate();
-  const [warning, setWarning] = useState();
-  
+  const dispatch = useDispatch();
+  const { types } = useSelector(state => state.rates);
   function handleSelectValue(value) {
-    if(isAnswering){
-      return;
-    } 
-    setType(value);
-    setIsAnswering(true);
-  }
-
-  function handleClick() {
-    if(isAnswering) {
-      setWarning("Answer to all questions first");
-    }
+    dispatch(setType(value));
+    dispatch(setIsAnswering(true));
   }
   
   return (
@@ -27,22 +17,18 @@ export default function SelectLessonType() {
       </label>
       {!types && <option>Loading...</option>}
       {types && types.map(item => ( 
-        <label key={item} className={classes.glassRadio} onClick={handleClick}>
+        <label key={item} className={classes.glassRadio}>
           <input
             type="radio"
             name="lessonType"
             value={item}
             onChange={() => handleSelectValue(item)}
-            disabled={isAnswering}
           />
           <span className={classes.radioContent}>
             {item}
           </span>
         </label>
       ))}
-      {isAnswering && (
-        <p style={{'color': 'red'}}>{warning}</p>
-      )}
     </>
   )
 }

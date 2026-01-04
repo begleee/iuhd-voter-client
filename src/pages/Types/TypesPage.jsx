@@ -1,65 +1,54 @@
 import { useState } from 'react'
 import SelectLessonType from '../../components/Lesson Type/SelectLessonType'
-import { useRate } from '../../context/rates-context'
 import Questions from '../../components/Questions';
-import url from '../../utils/url';
-import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import classes from './TypesPage.module.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { clearAnswers } from '../../store/rates-slice';
+import { sendRates } from '../../utils/fethces';
 
 export default function TypesPage() {
-  const {type, teacherId, groupId, answers} = useRate();  
+  const { groupId, type, teacherId, answers } = useSelector(state => state.rates);
   const [isSuccess, setIsSuccess] = useState(false);
   const [success, setSuccess] = useState();
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const rate = { teacherId, groupId, answers, type };
 
-  async function handleSubmit() {
-    const rate = {
-      teacherId,
-      groupId,
-      answers,
-      type,
-    };
-
+  async function handleSubmit(e) {
+    e.preventDefault();
     const hasEmptyAnswer = rate.answers.some(answer => answer.value === 0);
-
     if (hasEmptyAnswer) {
       setSuccess("Please answer all questions"); 
       setIsSuccess(false);
       return; 
     }
 
-    try {
-      const response = await fetch(url + "/teacher/rate", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(rate),
-      });
-      if (!response.ok) return;
+    const response = await sendRates(rate);
 
-      setIsSuccess(true);
-      setSuccess("Rated successfully");
-    } catch (err) {
-      console.error(err);
+    if(!response.ok) {
+      console.error(response);
       setSuccess("Something went wrong");
       setIsSuccess(false);
+    } else {
+      setIsSuccess(true);
+      setSuccess("Rated successfully");
+      dispatch(clearAnswers());
     }
   }
 
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <SelectLessonType/>
       {type && <Questions/>}
       <div className={classes.submitField}>
-        {answers.length == 5 && <Button onClick={handleSubmit}>Submit Rating</Button>}
+        {answers.length == 5 && <Button>Submit Rating</Button>}
         {success && (
           <>
             <p className={isSuccess ? classes.success : classes.unsuccess}>{success}</p>
-            <Button onClick={() => navigate('../teachers')}>Go to teachers page</Button>
           </>
         )}
       </div>
-    </>
+    </form>
   )
 }
