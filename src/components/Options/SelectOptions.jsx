@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import classes from './SelectOptions.module.css';
 import { updateAnswers } from '../../store/rates-slice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function SelectOptions({ label, id }) {
-  const [value, setValue] = useState();
+  const { answers } = useSelector(state => state.rates);
+  const value = answers.find(answer => answer.questionId === id).value;
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
@@ -14,7 +15,6 @@ export default function SelectOptions({ label, id }) {
 
   function handleChage(val) {
     const value = parseInt(val);
-    setValue(val);
     dispatch(updateAnswers({id, value}));
   }
 
@@ -55,7 +55,7 @@ export default function SelectOptions({ label, id }) {
         className={classes.glassSelectTrigger}
         onClick={toggleOpen}
       >
-        {options.find(opt => opt.value === value)?.label || "Select"}
+        {options.find(opt => opt.value === "" + value)?.label || "Select"}
         <span className={`${classes.arrow} ${open ? classes.open : ""}`} />
       </div>
 
