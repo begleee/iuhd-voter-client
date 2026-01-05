@@ -8,6 +8,7 @@ export default function Root() {
   useEffect(() => {
     navigate('./')
   }, [navigate]);
+  
   return (
     <Container>
       <h1>Rate Your Teacher</h1>

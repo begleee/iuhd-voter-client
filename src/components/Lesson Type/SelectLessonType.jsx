@@ -35,7 +35,7 @@ export default function SelectLessonType() {
             type="radio"
             name="lessonType"
             value={item}
-            disabled={isAnswering || completed.find(i => i === item)}
+            disabled={isAnswering || answeredTypes.find(i => i === item)}
             onChange={() => handleSelectValue(item)}
           />
           <span className={classes.radioContent}>

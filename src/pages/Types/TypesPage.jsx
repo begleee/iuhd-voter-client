@@ -7,15 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearAnswers } from '../../store/rates-slice';
 import { sendRates } from '../../utils/fethces';
 import { clearAll } from '../../store/answers-slice';
-
-function haveSameItems(arr1, arr2) {
-  if (arr1.length !== arr2.length) return false;
-
-  const a = [...arr1].sort();
-  const b = [...arr2].sort();
-
-  return a.every((item, index) => item === b[index]);
-}
+import haveSameItems from '../../utils/haveSameItems';
+import { useNavigate } from 'react-router-dom';
 
 export default function TypesPage() {
   const { groupId, type, teacherId, answers, types } = useSelector(state => state.rates);
@@ -23,6 +16,7 @@ export default function TypesPage() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [success, setSuccess] = useState();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const rate = { teacherId, groupId, answers, type };
 
@@ -61,15 +55,21 @@ export default function TypesPage() {
     })    
   }
 
+  function handleGoHome(e) {
+    e.preventDefault();
+    navigate(0);
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <SelectLessonType/>
       {type && <Questions/>}
       <div className={classes.submitField}>
-        <Button>Submit Rating</Button>
+        <Button disabled={isSuccess}>Submit Rating</Button>
         {success && (
           <>
             <p className={isSuccess ? classes.success : classes.unsuccess}>{success}</p>
+            {isSuccess && <Button type="button" onClick={handleGoHome}>Go to start page</Button>}
           </>
         )}
       </div>
