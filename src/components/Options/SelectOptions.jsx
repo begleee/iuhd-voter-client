@@ -2,9 +2,10 @@ import { useState, useRef, useEffect } from 'react';
 import classes from './SelectOptions.module.css';
 import { updateAnswers } from '../../store/rates-slice';
 import { useDispatch, useSelector } from 'react-redux';
+import { addAnsweredType, setCompleted, setIsAnswering, setWarning } from '../../store/answers-slice';
 
 export default function SelectOptions({ label, id }) {
-  const { answers } = useSelector(state => state.rates);
+  const { answers, type } = useSelector(state => state.rates);
   const value = answers.find(answer => answer.questionId === id).value;
   const dispatch = useDispatch();
 
@@ -16,6 +17,17 @@ export default function SelectOptions({ label, id }) {
   function handleChage(val) {
     const value = parseInt(val);
     dispatch(updateAnswers({id, value}));
+    const newAnswers = answers.map(answer => answer.questionId == id ? {...answer, value} : answer);
+    const answeredType = {
+      type,
+      answers: newAnswers,
+    }
+    if(!newAnswers.some(answer => answer.value === 0)) {
+      dispatch(setIsAnswering(false));
+      dispatch(addAnsweredType(answeredType.type));
+      dispatch(setCompleted(answeredType));
+      dispatch(setWarning(null));
+    }
   }
 
   const options = [

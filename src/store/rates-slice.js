@@ -18,7 +18,6 @@ const initialState = {
   groups,
   data: null,
   questions,
-  isAnswering: null
 }
 
 const ratesSlice = createSlice({
@@ -49,9 +48,6 @@ const ratesSlice = createSlice({
     setQuestions(state, action) {
       state.questions = action.payload;
     },
-    setIsAnswering(state, action) {
-      state.isAnswering = action.payload;
-    },
     updateAnswers(state, action) {
       const {id, value} = action.payload;
       state.answers = state.answers.map(item => item.questionId === id ? { ...item, value} : item)
@@ -74,7 +70,6 @@ export const {
   setGroups,
   setData,
   setQuestions,
-  setIsAnswering,
   updateAnswers,
   resetAnswers,
   clearAnswers,

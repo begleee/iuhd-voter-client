@@ -9,7 +9,7 @@
   color: rgba(255, 255, 255, 0.7);
 }
 
-/* Hide native radio */
+/* hide native radio */
 .glassRadio input {
   display: none;
 }
@@ -20,7 +20,12 @@
   cursor: pointer;
 }
 
-/* Glass card */
+/* glass radio completed */
+.completed .radioContent {
+  background: rgba(0, 255, 42, 0.282);
+}
+
+/* glass card */
 .radioContent {
   display: flex;
   align-items: center;
@@ -50,10 +55,23 @@
   transform: translateY(-1px);
 }
 
+.completed:hover .radioContent {
+  background-color: rgba(0, 255, 42, 0.282);
+}
+
 /* Checked (selected) state */
 .glassRadio input:checked + .radioContent {
   background: rgba(0, 94, 255, 0.282);
   box-shadow:
     0 0 0 2px rgba(255, 255, 255, 0.5),
     0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.completed input:checked + .radioContent {
+  background-color: rgba(0, 255, 42, 0.282);
+}
+
+.warning {
+  color: rgb(255, 85, 85);
+  margin-bottom: 1rem;
 }
